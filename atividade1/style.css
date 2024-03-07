@@ -44,3 +44,7 @@ button {
 button:hover {
     background-color: #eec373;
 }
+
+#botao-compra {
+    margin: 10px 0px;
+}
