@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             carrinho.push({ produto: produtoDigitado, valor: valorRecebido });
             observacao.innerText = 'Produto adicionado ao carrinho!';
             resultado.innerText = ' ';
+            produto.value = ' ';
         }
         else {
             observacao.innerText = 'Insira o código ou nome do produto, em seguida, consulte o valor.';
