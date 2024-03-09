@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let observacao = document.getElementById('campo-obs');
     let consulta = document.getElementById('consulta-total');
     let listaCompra = document.getElementById('lista-compras');
+    let limparLista = document.getElementById('limpar');
 
     consultaPreco.addEventListener('click', function() {
         let produtoDigitado = produto.value;
@@ -32,8 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
             observacao.innerText = 'Produto adicionado ao carrinho!';
             resultado.innerText = ' ';
             produto.value = ' ';
-            carrinho.forEach(item => {
-                listaCompra.innerText += item.produto + ' ---> ' + item.valor + '\n';
+            carrinho.forEach((item, index) => {
+                index += 1;
+                listaCompra.innerText += '[' + index + '] ' + item.produto + ' ---> ' + item.valor + '\n';
             });
         }
         else {
@@ -51,8 +53,20 @@ document.addEventListener('DOMContentLoaded', function() {
             resultado.innerText = ' ';
         }
         else {
-            observacao.innerText = 'Carrinho vazio';
+            observacao.innerText = 'Carrinho vazio!';
         }  
+    });
+
+    limparLista.addEventListener('click', function() {
+        if (carrinho.length > 0) {
+            carrinho = [];
+            observacao.innerText = 'Lista excluída!';
+            listaCompra.innerText = ' ';
+            resultado.innerText = ' ';
+        }
+        else {
+            observacao.innerText = 'Carrinho vazio!';
+        }
     });
 
 });
