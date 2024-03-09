@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let produto = document.getElementById('input-produto');
     let consultaPreco = document.getElementById('botao-consulta');
     let resultado = document.getElementById('reposta');
@@ -9,7 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let listaCompra = document.getElementById('lista-compras');
     let limparLista = document.getElementById('limpar');
 
-    consultaPreco.addEventListener('click', function() {
+    const carrinhoArmazenadoJSON = localStorage.getItem('carrinho');
+    if (carrinhoArmazenadoJSON) {
+        carrinho = JSON.parse(carrinhoArmazenadoJSON);
+        alert('Você tem produtos salvos!');
+    }
+
+    consultaPreco.addEventListener('click', function () {
         let produtoDigitado = produto.value;
         if (produtoDigitado !== '') {
             let produtoDigitado = produto.value;
@@ -25,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    comprar.addEventListener('click', function() {
+    comprar.addEventListener('click', function () {
         let produtoDigitado = produto.value;
         let valorRecebido = resultado.innerText.split('R$ ')[1];
         if (produtoDigitado !== '' && valorRecebido !== undefined) {
@@ -33,17 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
             observacao.innerText = 'Produto adicionado ao carrinho!';
             resultado.innerText = ' ';
             produto.value = ' ';
-            carrinho.forEach((item, index) => {
-                index += 1;
-                listaCompra.innerText += '[' + index + '] ' + item.produto + ' ---> ' + item.valor + '\n';
-            });
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
         }
         else {
             observacao.innerText = 'Insira o código ou nome do produto, em seguida, consulte o valor.';
         }
     });
 
-    consulta.addEventListener('click', function() {
+    consulta.addEventListener('click', function () {
         let soma = 0;
         if (carrinho.length > 0) {
             carrinho.forEach(item => {
@@ -51,21 +54,27 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             observacao.innerText = 'Total da compra: R$ ' + soma.toFixed(2);
             resultado.innerText = ' ';
+            carrinho.forEach((item, index) => {
+                index += 1;
+                listaCompra.innerText += '[' + index + '] ' + item.produto + ' ---> ' + item.valor + '\n';
+            });
         }
         else {
             observacao.innerText = 'Carrinho vazio!';
-        }  
+        }
     });
 
-    limparLista.addEventListener('click', function() {
+    limparLista.addEventListener('click', function () {
         if (carrinho.length > 0) {
             carrinho = [];
             observacao.innerText = 'Lista excluída!';
             listaCompra.innerText = ' ';
             resultado.innerText = ' ';
+            localStorage.clear();
         }
         else {
             observacao.innerText = 'Carrinho vazio!';
+            localStorage.clear();
         }
     });
 
