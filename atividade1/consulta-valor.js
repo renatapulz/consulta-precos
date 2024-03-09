@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let carrinho = [];
     let observacao = document.getElementById('campo-obs');
     let consulta = document.getElementById('consulta-total');
+    let listaCompra = document.getElementById('lista-compras');
 
     consultaPreco.addEventListener('click', function() {
         let produtoDigitado = produto.value;
@@ -14,10 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
             let valor = consultaDePreco(produtoDigitado).toFixed(2);
             resultado.innerText = 'O valor do produto ' + produtoDigitado + ' é R$ ' + valor;
             observacao.innerText = ' ';
+            listaCompra.innerText = ' ';
         }
         else {
             observacao.innerText = 'Insira o código ou nome do produto, por favor.';
             resultado.innerText = ' ';
+            listaCompra.innerText = ' ';
         }
     });
 
@@ -29,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
             observacao.innerText = 'Produto adicionado ao carrinho!';
             resultado.innerText = ' ';
             produto.value = ' ';
+            carrinho.forEach(item => {
+                listaCompra.innerText += item.produto + ' ---> ' + item.valor + '\n';
+            });
         }
         else {
             observacao.innerText = 'Insira o código ou nome do produto, em seguida, consulte o valor.';
@@ -41,17 +47,16 @@ document.addEventListener('DOMContentLoaded', function() {
             carrinho.forEach(item => {
                 soma += parseFloat(item.valor);
             });
-            observacao.innerText = 'Total dos itens somam R$ ' + soma.toFixed(2);
+            observacao.innerText = 'Total da compra: R$ ' + soma.toFixed(2);
             resultado.innerText = ' ';
         }
         else {
             observacao.innerText = 'Carrinho vazio';
-            resultado.innerText = ' ';
         }  
     });
 
 });
 
-function consultaDePreco(produtoDigitado) {
+function consultaDePreco() {
     return Math.random() * 100;
 }
