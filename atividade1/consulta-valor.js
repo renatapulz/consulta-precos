@@ -41,8 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 soma += parseFloat(item.valor);
             });
             observacao.innerText = 'Total dos itens somam R$ ' + soma.toFixed(2);
-            
-            .innerText = ' ';
+            resultado.innerText = ' ';
         }
         else {
             observacao.innerText = 'Carrinho vazio';
